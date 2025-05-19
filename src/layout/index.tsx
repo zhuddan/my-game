@@ -1,19 +1,17 @@
-import type { ReactNode } from 'react'
-
 import {
   Application,
   extend,
 } from '@pixi/react'
+
 import {
   Container,
   Graphics,
   Sprite,
   Text,
 } from 'pixi.js'
+import { type ReactNode, useState } from 'react'
+import Loading from '~/pages/Loading'
 
-// import { BunnySprite } from './BunnySprite'
-
-// extend tells @pixi/react what Pixi.js components are available
 extend({
   Container,
   Graphics,
@@ -22,13 +20,17 @@ extend({
 })
 
 const dpr = window.devicePixelRatio || 1
+
 export default function Layout({ children }: { children?: ReactNode }) {
+  const [isLoad, setIsLoad] = useState(false)
   return (
     <Application
       resolution={dpr}
       autoDensity
     >
-      {children}
+      {
+        isLoad ? children : <Loading onFinish={()=>setIsLoad(true)}/>
+      }
     </Application>
   )
 }

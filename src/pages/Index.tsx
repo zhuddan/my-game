@@ -25,7 +25,7 @@ export default function Index() {
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
       case '开始游戏':
-        navigate('./Game')
+        navigate('./game')
         break
       default:
     }
