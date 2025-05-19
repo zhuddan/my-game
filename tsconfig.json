@@ -14,7 +14,6 @@
     },
     "resolveJsonModule": true,
     "types": [
-      "unplugin-icons/types/react"
     ],
     "allowImportingTsExtensions": true,
 
