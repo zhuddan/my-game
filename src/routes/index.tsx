@@ -1,7 +1,8 @@
-import { lazy, Suspense } from 'react'
+// import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import PendingFeedback from '~/components/pending-feedback'
+// import PendingFeedback from '~/components/pending-feedback'
 import Layout from '~/layout'
+import Game from '~/pages/Game'
 import Index from '~/pages/Index'
 import NotFound from '~/pages/NotFound'
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     element: <Index />,
   },
   {
+    path: '/game',
+    element: <Game />,
+  },
+  {
     path: '*',
     element: <NotFound />,
   },
@@ -41,7 +46,7 @@ const router = createBrowserRouter([
   },
 })
 
-export default function RootRooter() {
+export default function AppRooter() {
   return (
     <Layout>
       <RouterProvider router={router} />

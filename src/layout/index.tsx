@@ -11,7 +11,7 @@ import {
   Text,
 } from 'pixi.js'
 
-import { BunnySprite } from './BunnySprite'
+// import { BunnySprite } from './BunnySprite'
 
 // extend tells @pixi/react what Pixi.js components are available
 extend({
@@ -21,9 +21,13 @@ extend({
   Text,
 })
 
+const dpr = window.devicePixelRatio || 1
 export default function Layout({ children }: { children?: ReactNode }) {
   return (
-    <Application>
+    <Application
+      resolution={dpr}
+      autoDensity
+    >
       {children}
     </Application>
   )

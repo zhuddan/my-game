@@ -1,22 +1,35 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '~/components/Button'
 import { Theme } from '~/constants/ui'
 
+type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '关于我们'
+
 export default function Index() {
+  const navigate = useNavigate()
   const btns = useMemo(() => {
-    return [
+    return ([
       '开始游戏',
       '继续游戏',
       '关卡选择',
       '设置',
       '关于我们',
-    ].map((text, index) => {
+    ] satisfies BtnTexts[]).map((text, index) => {
       return {
         text,
         y: index * (50 + 20),
       }
     })
   }, [])
+
+  const handleClickButton = useCallback((text: BtnTexts) => {
+    switch (text) {
+      case '开始游戏':
+        navigate('./Game')
+        break
+      default:
+    }
+  }, [navigate])
   return (
     <pixiContainer x={400} y={60}>
       <pixiText
@@ -40,6 +53,7 @@ export default function Index() {
               <Button
                 key={it.text}
                 y={it.y}
+                onClick={() => handleClickButton(it.text)}
               >
                 {it.text}
               </Button>

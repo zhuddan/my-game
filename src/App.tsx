@@ -1,10 +1,10 @@
-import RootRooter from './routes'
+import AppRooter from './routes'
 import { Provider as QueryProvider } from './state/query'
 
 function App() {
   return (
     <QueryProvider>
-      <RootRooter />
+      <AppRooter />
     </QueryProvider>
   )
 }
