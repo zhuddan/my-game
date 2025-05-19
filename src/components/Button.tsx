@@ -1,17 +1,44 @@
-import type { ReactNode } from 'react'
+import type { Graphics } from 'pixi.js'
+import { type ReactNode, useCallback, useMemo, useState } from 'react'
+import { Theme } from '~/constants/ui'
 
 interface ButtonProps {
-  onClick?: () => void
   x?: number
   y?: number
+  width?: number
+  height?: number
+  radius?: number
   children?: ReactNode
+  onClick?: () => void
 }
+const MAX_OFFSET = 6
+
 export default function Button({
   onClick,
   x,
   y,
   children,
+  width = 180,
+  height = 50,
+  radius = 10,
 }: ButtonProps) {
+  const [isHovered, setIsHover] = useState(false)
+
+  const offset = useMemo(() => {
+    return isHovered ? MAX_OFFSET / 2 : 0
+  }, [isHovered])
+
+  const draw = useCallback((graphics: Graphics) => {
+    graphics.clear()
+    graphics.setFillStyle({ color: Theme.primary })
+    graphics.roundRect(0 + offset, 0 + offset, width, height, radius)
+    graphics.fill()
+
+    graphics.roundRect(0 + MAX_OFFSET, 0 + MAX_OFFSET, width, height, radius)
+    graphics.setStrokeStyle({ color: Theme.primary, width: 1 })
+    graphics.stroke()
+  }, [height, offset, radius, width])
+
   return (
     <pixiContainer
       y={y}
@@ -19,16 +46,11 @@ export default function Button({
       eventMode="static"
       cursor="pointer"
       onClick={onClick}
+      onPointerOver={() => setIsHover(true)}
+      onPointerOut={() => setIsHover(false)}
     >
       <pixiGraphics
-        draw={(graphics) => {
-          graphics.clear()
-          graphics.setFillStyle({ color: 'red', alpha: 0.5 })
-          graphics.setStrokeStyle({ color: 'red', width: 4 })
-          graphics.roundRect(0, 0, 180, 50, 10)
-          graphics.fill()
-          graphics.stroke()
-        }}
+        draw={draw}
       />
       {
         typeof children === 'string'
@@ -39,8 +61,8 @@ export default function Button({
                   fill: '#fff',
                 }}
                 anchor={0.5}
-                x={90}
-                y={25}
+                x={width / 2 + offset}
+                y={height / 2 + offset}
               />
             )
           : children

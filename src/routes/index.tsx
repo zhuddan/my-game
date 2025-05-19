@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import PendingFeedback from '~/components/pending-feedback'
 import Layout from '~/layout'
-import Homebase from '~/pages/home'
+import Index from '~/pages/Index'
 import NotFound from '~/pages/NotFound'
 
 // const Home = lazy(() => import('~/pages/home'))
@@ -30,7 +30,7 @@ import NotFound from '~/pages/NotFound'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Homebase />,
+    element: <Index />,
   },
   {
     path: '*',
