@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '~/components/Button'
+import Title from '~/components/Title'
 import { Theme } from '~/constants/config'
 
 type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '关于我们'
@@ -31,22 +32,8 @@ export default function Index() {
     }
   }, [navigate])
   return (
-    <pixiContainer x={400} y={60}>
-      <pixiText
-        text="做杯奶茶吧"
-        anchor={{
-          x: 0.5,
-          y: 0,
-        }}
-        style={{
-          align: 'center',
-          fill: Theme.primary,
-          fontSize: '60',
-          fontWeight: '600',
-          fontFamily: 'FusionPixel',
-        }}
-      >
-      </pixiText>
+    <>
+      <Title />
       <pixiContainer y={110} x={-90}>
         {
           btns.map((it) => {
@@ -62,6 +49,6 @@ export default function Index() {
           })
         }
       </pixiContainer>
-    </pixiContainer>
+    </>
   )
 }

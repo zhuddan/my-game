@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ASSETS } from '~/constants/assets'
 import { sleep } from '~/utils/sleep'
 import { toPascalCase } from '~/utils/toPascalCase'
+import ProgressBar from './ProgressBar'
 import Title from './Title'
 
 export default function Loading({
@@ -27,13 +28,14 @@ export default function Loading({
     Assets.add(items)
 
     Assets.load(items.map(e => e.alias), setProgress).then(() => {
-      return sleep(100 * 200000)
+      return sleep(100 * 1000000)
     }).then(onFinish)
   }, [onFinish])
 
   return (
     <>
       <Title />
+      <ProgressBar progress={progress} />
     </>
   )
 }

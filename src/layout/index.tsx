@@ -1,15 +1,16 @@
+import type { ReactNode } from 'react'
+
 import {
   Application,
   extend,
 } from '@pixi/react'
-
 import {
   Container,
   Graphics,
   Sprite,
   Text,
 } from 'pixi.js'
-import { type ReactNode, useState } from 'react'
+import { useState } from 'react'
 import { useWindowSize } from 'react-use'
 import Loading from '~/components/Loading'
 import { DESIGN } from '~/constants/config'
@@ -39,6 +40,7 @@ export default function Layout({ children }: { children?: ReactNode }) {
           className="pixi-canvas"
           backgroundAlpha={0}
           defaultTextStyle={{ fontFamily: 'FusionPixel' }}
+          sharedTicker
         >
           {isLoad ? children : <Loading onFinish={() => setIsLoad(true)} />}
         </Application>
