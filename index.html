@@ -5,10 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/react.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>template-react</title>
-    <script type="module" crossorigin src="/my-game/assets/index-DGss4Fsl.js"></script>
-    <link rel="stylesheet" crossorigin href="/my-game/assets/index-Qd9ve16D.css">
+    <script type="module" crossorigin src="/my-game/assets/index-B4iZJiCr.js"></script>
+    <link rel="stylesheet" crossorigin href="/my-game/assets/index-5P03luxp.css">
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+      WebFont.load({
+        // google: {
+        //   families: ['Press Start 2P', 'ZCOOL KuaiLe'],
+        // },
+        custom: {
+          families: ['FusionPixel'],
+          urls: ['/my-game/font.css'], // 在这个 CSS 文件中定义 @font-face
+        },
+        active: (e) => {
+          console.log('font loaded!')
+        },
+      })
+    </script>
   </body>
 </html>
