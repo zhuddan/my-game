@@ -33,7 +33,7 @@ export default function Index() {
   return (
     <pixiContainer x={400} y={60}>
       <pixiText
-        text="做杯奶茶吧"
+        text="做杯奶茶吧FusionPixel"
         anchor={{
           x: 0.5,
           y: 0,
@@ -43,6 +43,7 @@ export default function Index() {
           fill: Theme.primary,
           fontSize: '60',
           fontWeight: '600',
+          fontFamily: 'FusionPixel',
         }}
       >
       </pixiText>

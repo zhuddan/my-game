@@ -8,6 +8,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+      WebFont.load({
+        // google: {
+        //   families: ['Press Start 2P', 'ZCOOL KuaiLe'],
+        // },
+        custom: {
+          families: ['FusionPixel'],
+          urls: ['/my-game/font.css'], // 在这个 CSS 文件中定义 @font-face
+        },
+        active: (e) => {
+          console.log('font loaded!')
+        },
+      })
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

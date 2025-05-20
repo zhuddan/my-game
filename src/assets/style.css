@@ -1,21 +1,29 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
 :root {
-  --bg-1: url('/my-game/images/DesertSunset.png');
-  --bg-2: url('/my-game/images/FullMoon.png');
-  --bg-3: url('/my-game/images/MistyLake.png');
-  --bg-4: url('/my-game/images/SeaSight.png');
-  --bg-5: url('/my-game/images/TheMistyMountains.png');
+  --bg-evening: url('/my-game/images/evening.PNG');
+  --bg-morning: url('/my-game/images/morning.PNG');
+  --bg-bg: url('/my-game/images/bg.jpg');
 }
 
 #game-container {
-  background-color: pink;
+  background-color: #fbeeba;
   height: 100vh;
   width: 100vw;
   position: relative;
-  background-image: var(--bg-1);
+  background-image: var(--bg-bg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 .game-canvas {
-  border: 10px solid paleturquoise;
+  border: 2px solid rgb(122, 31, 232);
   box-sizing: border-box;
   position: absolute;
   top: 50%;

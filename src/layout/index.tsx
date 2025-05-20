@@ -11,7 +11,7 @@ import {
 } from 'pixi.js'
 import { type ReactNode, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import Loading from '~/pages/Loading'
+import Loading from '~/components/Loading'
 
 extend({
   Container,
@@ -29,11 +29,10 @@ export default function Layout({ children }: { children?: ReactNode }) {
   const [isLoad, setIsLoad] = useState(false)
   const { width, height } = useWindowSize()
   const isWideScreen = ((width / height) / (750 / 1334)) >= 1
+
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>
-      <div className="fixed top-0">
-        {JSON.stringify({ width, height })}
-      </div>
+      <p style={{ fontFamily: 'Snippet' }}>做杯奶茶吧abc123</p>
       <div className="game-canvas">
         <Application
           resolution={dpr}
@@ -41,10 +40,12 @@ export default function Layout({ children }: { children?: ReactNode }) {
           width={DESIGN_WIDTH}
           height={DESIGN_HEIGHT}
           className="pixi-canvas"
+          backgroundAlpha={0}
+          defaultTextStyle={{
+            // fontFamily: 'FusionPixel',
+          }}
         >
-          {
-            isLoad ? children : <Loading onFinish={() => setIsLoad(true)} />
-          }
+          {isLoad ? children : <Loading onFinish={() => setIsLoad(true)} />}
         </Application>
       </div>
     </div>
