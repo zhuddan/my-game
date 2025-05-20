@@ -9,17 +9,29 @@ interface ButtonProps {
   height?: number
   radius?: number
   children?: ReactNode
+  fontSize?: string
+  color?: string
   onClick?: () => void
 }
-const MAX_OFFSET = 6
+
+const MAX_OFFSET = 10
+
+export const ButtonDefaultProps = {
+  width: 400,
+  height: 100,
+  color: '#fff',
+  fontSize: '50',
+} as FieldSubset<ButtonProps, 'height' | 'width'>
 
 export default function Button({
   onClick,
   x,
   y,
   children,
-  width = 180,
-  height = 50,
+  width = ButtonDefaultProps.width,
+  height = ButtonDefaultProps.height,
+  color = ButtonDefaultProps.color,
+  fontSize = ButtonDefaultProps.fontSize,
   radius = 10,
 }: ButtonProps) {
   const [isActive, setIsActive] = useState(false)
@@ -37,7 +49,7 @@ export default function Button({
     graphics.fill()
 
     graphics.roundRect(0 + MAX_OFFSET, 0 + MAX_OFFSET, width, height, radius)
-    graphics.setStrokeStyle({ color: Theme.primary, width: 1 })
+    graphics.setStrokeStyle({ color: Theme.primary, width: 2 })
     graphics.stroke()
   }, [height, offset, radius, width])
 
@@ -91,7 +103,8 @@ export default function Button({
               <pixiText
                 text={children}
                 style={{
-                  fill: '#fff',
+                  fill: color,
+                  fontSize,
                 }}
                 anchor={0.5}
                 x={width / 2 + offset}
