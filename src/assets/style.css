@@ -51,7 +51,7 @@ body {
 .pixi-canvas {
   width: 100% !important;
   height: 100% !important;
-  background-color: rgba(0, 255, 145, 0.2);
+  /* background-color: rgba(0, 255, 145, 0.2); */
 }
 
 .debug-bar {

@@ -90,11 +90,11 @@ export default function Button({
       onPointerUpOutside={handlePointerOut} // 添加这个处理在按钮外释放的情况
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
-      // hitArea={{
-      //   contains: (x: number, y: number) => {
-      //     return x >= 0 && x <= width && y >= 0 && y <= height
-      //   },
-      // }}
+      hitArea={{
+        contains: (x: number, y: number) => {
+          return x >= 0 && x <= width && y >= 0 && y <= height
+        },
+      }}
     >
       <pixiGraphics draw={draw} />
       {
@@ -111,7 +111,14 @@ export default function Button({
                 y={height / 2 + offset}
               />
             )
-          : children
+          : (
+              <pixiContainer
+                x={offset}
+                y={offset}
+              >
+                {children}
+              </pixiContainer>
+            )
       }
     </pixiContainer>
   )

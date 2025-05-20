@@ -1,7 +1,8 @@
 // import { lazy, Suspense } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createHashRouter, RouterProvider } from 'react-router-dom'
 // import PendingFeedback from '~/components/pending-feedback'
 import Layout from '~/layout'
+import About from '~/pages/About'
 import Game from '~/pages/Game'
 import Index from '~/pages/Index'
 import NotFound from '~/pages/NotFound'
@@ -28,7 +29,7 @@ import NotFound from '~/pages/NotFound'
 //   )
 // }
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Index />,
@@ -38,11 +39,15 @@ const router = createBrowserRouter([
     element: <Game />,
   },
   {
+    path: '/about',
+    element: <About />,
+  },
+  {
     path: '*',
     element: <NotFound />,
   },
 ], {
-  basename: import.meta.env.BASE_URL,
+  // basename: import.meta.env.BASE_URL,
   future: {
   },
 })

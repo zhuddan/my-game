@@ -1,10 +1,13 @@
+import type { Texture, TextureSource } from 'pixi.js'
+import type { SpriteAssetName } from '~/constants/assets'
 import { Assets } from 'pixi.js'
 import { useEffect, useRef, useState } from 'react'
 import { ASSETS } from '~/constants/assets'
 import { sleep } from '~/utils/sleep'
-import { toPascalCase } from '~/utils/toPascalCase'
 import ProgressBar from './ProgressBar'
 import Title from './Title'
+
+export const AssetsMap = new Map<SpriteAssetName, Texture<TextureSource<any>>>()
 
 export default function Loading({
   onFinish,
@@ -18,17 +21,20 @@ export default function Loading({
       return
     }
     isLoad.current = true
+
     const items = ASSETS.map((it) => {
-      const name = it.split('.')[0]
       return {
-        alias: toPascalCase(name),
-        src: `${import.meta.env.BASE_URL}/game/${it}?V=${Date.now()}`,
+        ...it,
+        src: `${import.meta.env.BASE_URL}/game/${it.src}`,
       }
     })
+
     Assets.add(items)
 
-    Assets.load(items.map(e => e.alias), setProgress).then(() => {
-      // DEV ONLY
+    Assets.load(items.map(e => e.alias), setProgress).then((object) => {
+      for (const key in object) {
+        AssetsMap.set(key as SpriteAssetName, object[key])
+      }
       return sleep(100 * 0)
     }).then(onFinish)
   }, [onFinish])

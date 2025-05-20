@@ -15,6 +15,7 @@ declare global {
   type PixiTextProps = PixiComponentsProps['Text']
   type PixiGraphicsProps = PixiComponentsProps['Graphics']
   type PixiContainerProps = PixiComponentsProps['Container']
+  type PixiSpriteProps = PixiComponentsProps['Sprite']
 }
 // 或者更好 更简单
 // declare global {

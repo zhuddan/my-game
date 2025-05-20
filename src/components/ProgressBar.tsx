@@ -32,12 +32,13 @@ export default function ProgressBar({
         anchor={{ x: 0.5, y: 0 }}
       >
       </pixiText>
-      <pixiGraphics draw={(graphics: Graphics) => {
-        graphics.clear()
-        graphics.setFillStyle({ color: Theme.border })
-        graphics.roundRect(0, 0 + 50, PROGRESS_BAR_WIDTH, 60, 10)
-        graphics.fill()
-      }}
+      <pixiGraphics
+        draw={(graphics: Graphics) => {
+          graphics.clear()
+          graphics.setFillStyle({ color: Theme.border })
+          graphics.roundRect(0, 0 + 50, PROGRESS_BAR_WIDTH, 60, 10)
+          graphics.fill()
+        }}
       />
       <pixiGraphics
         draw={(graphics: Graphics) => {

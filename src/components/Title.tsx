@@ -3,10 +3,17 @@ import gsap from 'gsap'
 
 import { useCallback } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
-import { useGameTicker } from '~/hooks/useGameTicker'
+import { useGameRef } from '~/hooks/useGameRef'
 
-interface TitleProps extends PixiTextProps {}
+interface TitleProps extends PixiTextProps {
+  size?: 'default' | 'small'
+  animate?: boolean
+  title?: string
+}
 export default function Title({
+  size = 'default',
+  animate = true,
+  title = '做杯奶茶吧',
   x = DESIGN.WIDTH / 2,
   y = 150,
   ...rest
@@ -28,16 +35,16 @@ export default function Title({
       },
     )
   }, [])
-  const textRef = useGameTicker(update)
+  const textRef = useGameRef(animate ? update : undefined)
 
   return (
     <pixiText
       ref={textRef}
-      text="做杯奶茶吧"
+      text={title}
       style={{
         align: 'center',
         fill: Theme.primary,
-        fontSize: '90',
+        fontSize: size === 'default' ? '90' : '60',
         fontWeight: '600',
         stroke: { color: '#4a1850', width: 5, join: 'round' },
         dropShadow: {

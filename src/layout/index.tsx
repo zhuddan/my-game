@@ -10,7 +10,7 @@ import {
   Sprite,
   Text,
 } from 'pixi.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import Loading from '~/components/Loading'
 import { DESIGN } from '~/constants/config'
@@ -29,6 +29,13 @@ export default function Layout({ children }: { children?: ReactNode }) {
   const [isLoad, setIsLoad] = useState(false)
   const { width, height } = useWindowSize()
   const isWideScreen = ((width / height) / (DESIGN.WIDTH / DESIGN.HEIGHT)) >= 1
+
+  useEffect(() => {
+    const vw = width * 0.01
+    const vh = height * 0.01
+    document.documentElement.style.setProperty('--vw', `${vw}px`)
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+  }, [height, width])
 
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>

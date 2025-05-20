@@ -1,9 +1,9 @@
 import NavBar from '~/components/NavBar'
 
-export default function Game() {
+export default function About() {
   return (
     <>
-      <NavBar />
+      <NavBar title="关于我们" />
     </>
   )
 }

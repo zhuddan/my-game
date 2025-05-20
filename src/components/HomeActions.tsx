@@ -10,7 +10,7 @@ export default function HomeActions() {
   const btns = useMemo(() => {
     return ([
       '开始游戏',
-      '继续游戏',
+      // '继续游戏',
       '关卡选择',
       '设置',
       '关于我们',
@@ -26,6 +26,10 @@ export default function HomeActions() {
     switch (text) {
       case '开始游戏':
         navigate('./game')
+        // alert(text)
+        break
+      case '关于我们':
+        navigate('./about')
         // alert(text)
         break
       default:
