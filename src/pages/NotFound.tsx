@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import Button from '~/components/button'
-import { BunnySprite } from '~/layout/BunnySprite'
+import Button from '~/components/Button'
 
 export default function NotFound() {
   const navigate = useNavigate()

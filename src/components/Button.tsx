@@ -22,12 +22,14 @@ export default function Button({
   height = 50,
   radius = 10,
 }: ButtonProps) {
-  const [isHovered, setIsHover] = useState(false)
+  const [isActive, setIsActive] = useState(false)
 
+  // 计算偏移量
   const offset = useMemo(() => {
-    return isHovered ? MAX_OFFSET / 2 : 0
-  }, [isHovered])
+    return isActive ? MAX_OFFSET / 2 : 0
+  }, [isActive])
 
+  // 绘制按钮
   const draw = useCallback((graphics: Graphics) => {
     graphics.clear()
     graphics.setFillStyle({ color: Theme.primary })
@@ -39,15 +41,48 @@ export default function Button({
     graphics.stroke()
   }, [height, offset, radius, width])
 
+  // 统一的点击/触摸处理逻辑
+  const handlePointerDown = useCallback(() => {
+    setIsActive(true)
+    // 这里故意不调用onClick，因为我们想在pointerup时触发
+  }, [])
+
+  const handlePointerUp = useCallback(() => {
+    if (isActive && onClick) {
+      // 如果按钮处于激活状态，则调用onClick回调
+      onClick()
+    }
+    setIsActive(false)
+  }, [isActive, onClick])
+
+  const handlePointerOut = useCallback(() => {
+    setIsActive(false)
+  }, [])
+
+  const handlePointerOver = useCallback(() => {
+    // 检测是否可能是鼠标设备
+    if (!('ontouchstart' in window)) {
+      setIsActive(true)
+    }
+  }, [])
+
   return (
     <pixiContainer
       y={y}
       x={x}
       eventMode="static"
       cursor="pointer"
-      onClick={onClick}
-      onPointerOver={() => setIsHover(true)}
-      onPointerOut={() => setIsHover(false)}
+      // 移除onClick，完全依赖pointer事件
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerUpOutside={handlePointerOut} // 添加这个处理在按钮外释放的情况
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      hitArea={{
+        contains: (x: number, y: number) => {
+          return x >= 0 && x <= width && y >= 0 && y <= height
+        },
+      }}
     >
       <pixiGraphics
         draw={draw}

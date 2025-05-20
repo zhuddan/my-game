@@ -42,6 +42,7 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
 ], {
+  basename: import.meta.env.BASE_URL,
   future: {
   },
 })

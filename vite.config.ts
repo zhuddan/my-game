@@ -8,6 +8,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, './')
   return {
+    base: '/my-game',
     plugins: [
       tailwindcss(),
       React(),

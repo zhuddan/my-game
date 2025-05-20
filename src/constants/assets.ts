@@ -68,5 +68,5 @@ export const ASSETS = [
   'squirrel-animal-cute-rodents-47547.jpg',
   'striped-core-butterflies-butterfly-brown-53957.jpg',
   'tiger.svg',
-  'turtle-closeup-with-school-of-fish.jpg',
+  'turtle-closeup-with-school-of-fish.jpg'
 ]

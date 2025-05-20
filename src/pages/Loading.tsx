@@ -20,7 +20,7 @@ export default function Loading({
       const name = it.split('.')[0]
       return {
         alias: toPascalCase(name),
-        src: `${import.meta.env.BASE_URL}assets/${it}?V=${Date.now()}`,
+        src: `${import.meta.env.BASE_URL}/assets/${it}?V=${Date.now()}`,
       }
     })
     Assets.add(items)
