@@ -28,7 +28,8 @@ export default function Loading({
     Assets.add(items)
 
     Assets.load(items.map(e => e.alias), setProgress).then(() => {
-      return sleep(100 * 1000000)
+      // DEV ONLY
+      return sleep(100 * 0)
     }).then(onFinish)
   }, [onFinish])
 

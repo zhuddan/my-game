@@ -20,7 +20,7 @@ export default function ProgressBar({
   return (
     <pixiContainer x={x} y={y} {...rest}>
       <pixiText
-        text="数据加载中"
+        text={`数据加载中${(progress * 100).toFixed(0)}%`}
         style={{
           align: 'center',
           fill: Theme.primary,
