@@ -9,7 +9,7 @@
     "check": "tsc ",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "bumpp": "bumpp --yes"
+    "bumpp": "bumpp patch --yes"
   },
   "dependencies": {
     "@pixi/react": "^8.0.2",
