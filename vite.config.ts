@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
       viteStaticCopy({
         targets: [
           {
-            src: './src/assets/*',
+            src: './src/assets/game/*',
             dest: './assets',
           },
         ],
