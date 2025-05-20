@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && bumpp && vite build",
+    "build": "tsc && vite build",
     "check": "tsc ",
     "preview": "vite preview",
     "lint": "eslint . --fix",
