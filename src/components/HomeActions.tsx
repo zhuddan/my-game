@@ -26,6 +26,7 @@ export default function HomeActions() {
     switch (text) {
       case '开始游戏':
         navigate('./game')
+        // alert(text)
         break
       default:
     }

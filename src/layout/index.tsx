@@ -22,7 +22,8 @@ extend({
   Text,
 })
 
-const dpr = window.devicePixelRatio || 1
+let dpr = (window.devicePixelRatio || 1)
+dpr = dpr >= 3 ? 3 : dpr
 
 export default function Layout({ children }: { children?: ReactNode }) {
   const [isLoad, setIsLoad] = useState(false)
@@ -31,6 +32,9 @@ export default function Layout({ children }: { children?: ReactNode }) {
 
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>
+      <div className="debug-bar">
+        {JSON.stringify({ width, height }, null, 2)}
+      </div>
       <div className="game-canvas">
         <Application
           resolution={dpr}

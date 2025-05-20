@@ -9,7 +9,7 @@ export default function Game() {
   })
   return (
     <>
-      <Button width={40} height={40} radius={40}>
+      <Button width={80} height={80} radius={80} x={50}>
       </Button>
     </>
   )

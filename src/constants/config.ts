@@ -49,5 +49,5 @@ export enum DESIGN {
   /**
    * 设计稿高度
    */
-  HEIGHT = 1334,
+  HEIGHT = 1334, // 1334,
 }
