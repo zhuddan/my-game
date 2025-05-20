@@ -1,0 +1,39 @@
+:root {
+  --bg-1: url('/my-game/images/DesertSunset.png');
+  --bg-2: url('/my-game/images/FullMoon.png');
+  --bg-3: url('/my-game/images/MistyLake.png');
+  --bg-4: url('/my-game/images/SeaSight.png');
+  --bg-5: url('/my-game/images/TheMistyMountains.png');
+}
+
+#game-container {
+  background-color: pink;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  background-image: var(--bg-1);
+}
+
+.game-canvas {
+  border: 10px solid paleturquoise;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#game-container.wide .game-canvas {
+  height: 100vh !important;
+  width: calc(100vh * 750 / 1334) !important;
+}
+
+#game-container.long .game-canvas {
+  width: 100vw !important;
+  height: calc(100vw * 1334 / 750) !important;
+}
+
+.pixi-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

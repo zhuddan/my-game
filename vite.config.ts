@@ -1,6 +1,5 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import tailwindcss from '@tailwindcss/vite'
 import React from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
 // https://vitejs.dev/config/
@@ -9,7 +8,6 @@ export default defineConfig(({ mode }) => {
   return {
     base: '/my-game',
     plugins: [
-      tailwindcss(),
       React(),
       {
         name: '',
