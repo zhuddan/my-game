@@ -1,6 +1,6 @@
 import type { Graphics } from 'pixi.js'
 import { type ReactNode, useCallback, useMemo, useState } from 'react'
-import { Theme } from '~/constants/ui'
+import { Theme } from '~/constants/config'
 
 interface ButtonProps {
   x?: number
@@ -84,9 +84,7 @@ export default function Button({
         },
       }}
     >
-      <pixiGraphics
-        draw={draw}
-      />
+      <pixiGraphics draw={draw} />
       {
         typeof children === 'string'
           ? (

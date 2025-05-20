@@ -1,9 +1,9 @@
 import { Assets } from 'pixi.js'
 import { useEffect, useRef, useState } from 'react'
 import { ASSETS } from '~/constants/assets'
-import { Theme } from '~/constants/ui'
 import { sleep } from '~/utils/sleep'
 import { toPascalCase } from '~/utils/toPascalCase'
+import Title from './Title'
 
 export default function Loading({
   onFinish,
@@ -27,40 +27,13 @@ export default function Loading({
     Assets.add(items)
 
     Assets.load(items.map(e => e.alias), setProgress).then(() => {
-      return sleep(100 * 2000)
+      return sleep(100 * 200000)
     }).then(onFinish)
   }, [onFinish])
 
   return (
     <>
-      {
-        progress >= 1
-        && (
-          <>
-            <pixiText
-              text="做杯奶茶吧FusionPixel"
-              style={{
-                align: 'center',
-                fill: Theme.primary,
-                fontSize: '60',
-                fontWeight: '600',
-                fontFamily: 'FusionPixel',
-              }}
-            >
-            </pixiText>
-            <pixiText
-              text="做杯奶茶吧abc123"
-              y={150}
-              style={{
-                align: 'center',
-                fill: Theme.primary,
-                fontSize: '60',
-              }}
-            >
-            </pixiText>
-          </>
-        )
-      }
+      <Title />
     </>
   )
 }
