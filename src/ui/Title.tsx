@@ -1,9 +1,8 @@
-import type { Text as PixiTextClass } from 'pixi.js'
+import type { Text } from 'pixi.js'
 import gsap from 'gsap'
 
-import { useCallback } from 'react'
+import { useEffect, useRef } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
-import { useInstanceRef } from '~/hooks/useInstanceRef'
 
 interface TitleProps extends PixiTextProps {
   size?: 'default' | 'small'
@@ -18,24 +17,17 @@ export default function Title({
   y = 150,
   ...rest
 }: TitleProps) {
-  const update = useCallback((ins: PixiTextClass) => {
-    gsap.fromTo(
-      ins.scale,
-      {
-        x: 0.92,
-        y: 0.92,
-      },
-      {
-        x: 1,
-        y: 1,
-        // duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        // ease: 'bounce.out',
-      },
-    )
-  }, [])
-  const textRef = useInstanceRef(animate ? update : undefined)
+  const textRef = useRef<Text | null>(null)
+
+  useEffect(() => {
+    if (textRef.current && animate) {
+      gsap.fromTo(
+        textRef.current,
+        { x: 0.92, y: 0.92 },
+        { x: 1, y: 1, repeat: -1, yoyo: true },
+      )
+    }
+  }, [animate])
 
   return (
     <pixiText
