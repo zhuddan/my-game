@@ -22,7 +22,7 @@ export default function Title({
   useEffect(() => {
     if (textRef.current && animate) {
       gsap.fromTo(
-        textRef.current,
+        textRef.current.scale,
         { x: 0.92, y: 0.92 },
         { x: 1, y: 1, repeat: -1, yoyo: true },
       )
