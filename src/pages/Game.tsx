@@ -1,4 +1,4 @@
-import NavBar from '~/components/NavBar'
+import NavBar from '~/ui/NavBar'
 
 export default function Game() {
   return (

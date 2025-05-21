@@ -1,7 +1,7 @@
 import type { Graphics } from 'pixi.js'
 import { useNavigate } from 'react-router-dom'
-import Button from '~/components/Button'
-import Title from '~/components/Title'
+import Button from '~/ui/Button'
+import Title from '~/ui/Title'
 
 export default function NavBar({ title }: { title?: string }) {
   const navigate = useNavigate()
@@ -12,8 +12,8 @@ export default function NavBar({ title }: { title?: string }) {
         width={80}
         height={80}
         radius={80}
-        x={50}
-        y={50}
+        x={15}
+        y={15}
       >
         <pixiGraphics
           draw={(graphics: Graphics) => {
@@ -32,7 +32,7 @@ export default function NavBar({ title }: { title?: string }) {
           }}
         />
       </Button>
-      <Title size="small" title={title} y={60} animate={false} />
+      <Title size="small" title={title} y={25} animate={false} />
     </>
   )
 }

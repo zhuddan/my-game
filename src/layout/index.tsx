@@ -10,10 +10,10 @@ import {
   Sprite,
   Text,
 } from 'pixi.js'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import Loading from '~/components/Loading'
 import { DESIGN } from '~/constants/config'
+import Loading from '~/ui/Loading'
 
 extend({
   Container,
@@ -39,9 +39,6 @@ export default function Layout({ children }: { children?: ReactNode }) {
 
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>
-      <div className="debug-bar">
-        {JSON.stringify({ width, height }, null, 2)}
-      </div>
       <div className="game-canvas">
         <Application
           resolution={dpr}
@@ -53,6 +50,31 @@ export default function Layout({ children }: { children?: ReactNode }) {
           defaultTextStyle={{ fontFamily: 'FusionPixel' }}
           sharedTicker
         >
+          <pixiGraphics
+            draw={(g) => {
+              g.clear()
+              // g.rect(0, 0, DESIGN.WIDTH, DESIGN.HEIGHT)
+              g.setStrokeStyle({
+                color: 0xCCCCCC,
+                width: 2,
+              })
+              let x = 0
+              while (x <= DESIGN.WIDTH) {
+                g.moveTo(x, 0)
+                g.lineTo(x, DESIGN.HEIGHT)
+                x += 75
+              }
+              g.stroke()
+
+              let y = 0
+              while (y < DESIGN.HEIGHT) {
+                g.moveTo(0, y)
+                g.lineTo(DESIGN.HEIGHT, y)
+                y += 75
+              }
+              g.stroke()
+            }}
+          />
           {isLoad ? children : <Loading onFinish={() => setIsLoad(true)} />}
         </Application>
       </div>

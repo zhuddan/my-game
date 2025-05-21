@@ -21,22 +21,22 @@ export default function Loading({
       return
     }
     isLoad.current = true
-
     const items = ASSETS.map((it) => {
       return {
         ...it,
         src: `${import.meta.env.BASE_URL}/game/${it.src}`,
       }
     })
-
     Assets.add(items)
-
-    Assets.load(items.map(e => e.alias), setProgress).then((object) => {
-      for (const key in object) {
-        AssetsMap.set(key as SpriteAssetName, object[key])
-      }
-      return sleep(100 * 0)
-    }).then(onFinish)
+    Assets
+      .load(items.map(e => e.alias), setProgress)
+      .then((object) => {
+        for (const key in object) {
+          AssetsMap.set(key as SpriteAssetName, object[key])
+        }
+        return sleep(100 * 0)
+      })
+      .then(onFinish)
   }, [onFinish])
 
   return (

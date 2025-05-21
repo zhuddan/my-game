@@ -1,5 +1,5 @@
-import BaseSprite from '~/components/BaseSprite'
-import NavBar from '~/components/NavBar'
+import BaseSprite from '~/ui/BaseSprite'
+import NavBar from '~/ui/NavBar'
 
 export default function About() {
   return (

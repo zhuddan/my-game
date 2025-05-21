@@ -1,5 +1,5 @@
-import HomeActions from '~/components/HomeActions'
-import Title from '~/components/Title'
+import HomeActions from '~/ui/HomeActions'
+import Title from '~/ui/Title'
 
 export default function Index() {
   return (
