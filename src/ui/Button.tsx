@@ -2,7 +2,7 @@ import type { Graphics } from 'pixi.js'
 import { type ReactNode, useCallback, useMemo, useState } from 'react'
 import { Theme } from '~/constants/config'
 
-interface ButtonProps {
+export interface ButtonProps {
   x?: number
   y?: number
   width?: number
@@ -11,7 +11,6 @@ interface ButtonProps {
   children?: ReactNode
   fontSize?: string
   color?: string
-  round?: boolean
   onClick?: () => void
 }
 
@@ -30,21 +29,12 @@ export default function Button({
   y,
   children,
   width = ButtonDefaultProps.width,
-  height: _height = ButtonDefaultProps.height,
+  height = ButtonDefaultProps.height,
   color = ButtonDefaultProps.color,
   fontSize = ButtonDefaultProps.fontSize,
-  radius: _radius = 10,
-  round = false,
+  radius = 10,
 }: ButtonProps) {
   const [isActive, setIsActive] = useState(false)
-
-  const height = useMemo(() => {
-    return round ? width : _height
-  }, [_height, round, width])
-
-  const radius = useMemo(() => {
-    return round ? width : _radius
-  }, [_radius, round, width])
 
   // 计算偏移量
   const offset = useMemo(() => {
@@ -102,11 +92,7 @@ export default function Button({
       onPointerUpOutside={handlePointerOut} // 添加这个处理在按钮外释放的情况
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
-      hitArea={{
-        contains: (x: number, y: number) => {
-          return x >= 0 && x <= width && y >= 0 && y <= height
-        },
-      }}
+
     >
       <pixiGraphics draw={draw} />
       {

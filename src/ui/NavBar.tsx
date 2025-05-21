@@ -1,36 +1,19 @@
-import type { Graphics } from 'pixi.js'
 import { useNavigate } from 'react-router-dom'
-import Button from '~/ui/Button'
 import Title from '~/ui/Title'
+import RoundButton from './RoundButton'
+import LeftArrow from './shape/LeftArrow'
 
 export default function NavBar({ title }: { title?: string }) {
   const navigate = useNavigate()
   return (
     <>
-      <Button
+      <RoundButton
         onClick={() => navigate(-1)}
-        width={80}
-        round
         x={15}
         y={15}
       >
-        <pixiGraphics
-          draw={(graphics: Graphics) => {
-            graphics.clear()
-            graphics.moveTo(50, 20)
-            graphics.lineTo(20, 40)
-            graphics.lineTo(50, 60)
-            graphics.setStrokeStyle({
-              color: 'white',
-              width: 5,
-              cap: 'round',
-              join: 'round',
-            })
-            graphics.stroke()
-            graphics.closePath()
-          }}
-        />
-      </Button>
+        <LeftArrow />
+      </RoundButton>
       <Title size="small" title={title} y={25} animate={false} />
     </>
   )

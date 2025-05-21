@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DESIGN } from '~/constants/config'
 import Button, { ButtonDefaultProps } from '../Button'
@@ -22,16 +22,18 @@ export default function HomeActions() {
       }
     })
   }, [])
+  const [open, setOpen] = useState(false)
 
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
       case '开始游戏':
         navigate('./game')
-        // alert(text)
         break
       case '关于我们':
         navigate('./about')
-        // alert(text)
+        break
+      case '设置':
+        setOpen(true)
         break
       default:
     }
@@ -53,7 +55,10 @@ export default function HomeActions() {
           })
         }
       </pixiContainer>
-      <Modal />
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+      />
     </>
   )
 }

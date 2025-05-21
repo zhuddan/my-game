@@ -3,7 +3,7 @@ import gsap from 'gsap'
 
 import { useCallback } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
-import { useGameRef } from '~/hooks/useGameRef'
+import { useInstanceRef } from '~/hooks/useInstanceRef'
 
 interface TitleProps extends PixiTextProps {
   size?: 'default' | 'small'
@@ -35,7 +35,7 @@ export default function Title({
       },
     )
   }, [])
-  const textRef = useGameRef(animate ? update : undefined)
+  const textRef = useInstanceRef(animate ? update : undefined)
 
   return (
     <pixiText
