@@ -1,9 +1,13 @@
 import type { Container, Graphics } from 'pixi.js'
 import gsap from 'gsap'
+import { Text, TextStyle } from 'pixi.js'
 import { useCallback, useEffect, useRef } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
 import RoundButton from './RoundButton'
 import Cross from './shape/Cross'
+
+const scrollBoxWidth = 300
+const scrollBoxHeight = 400
 
 interface ModalProps {
   width?: number
@@ -11,7 +15,34 @@ interface ModalProps {
   open: boolean
   onClose: () => void
 }
+const t = `规则，是运行、运作规律所遵循的法则。
+规则，一般指由群众共同制定、公认或由代表人统一制定并通过的，由群体里的所有成员一起遵守的条例和章程。它存在三种形式：明规则、潜规则、元规则，无论何种规则只要违背善恶的道德必须严惩不贷以维护世间和谐；明规则是有明文规定的规则，存在需要不断完善的局限性；潜规则是无明文规定的规则，约定俗成无局限性，可弥补明规则不足之处；元规则是一种以暴力竞争解决问题的规则，善恶参半，非道德之理的文明之道。
+规则的三种形式，受人为因素制约，是人类发展过程中形成与创建。在科学体系里，规律和定理是极为重要的构成部分，本质上，它们是人类对自然界各种规则的解读与归纳。一个因人存在的规则与自然界潜在的法则，都属于规则。`
 
+const style = new TextStyle({
+  fontFamily: 'Arial',
+  fontSize: 36,
+  fontStyle: 'italic',
+  fontWeight: 'bold',
+  stroke: { color: '#4a1850', width: 5, join: 'round' },
+  dropShadow: {
+    color: '#000000',
+    blur: 4,
+    angle: Math.PI / 6,
+    distance: 6,
+  },
+  wordWrap: true,
+  wordWrapWidth: scrollBoxWidth - 50,
+})
+
+const items = Array.from({
+  length: 5,
+}, (_) => {
+  return new Text({
+    text: t,
+    style,
+  })
+})
 /**
  * 弹窗动画
  */
@@ -152,8 +183,15 @@ export default function Modal({
             fontWeight: '600',
             stroke: { color: '#4a1850', width: 5, join: 'round' },
           }}
-        >
-        </pixiText>
+        />
+        <pixiContainer x={-scrollBoxWidth / 2} y={-scrollBoxHeight / 2}>
+          <pixiScrollBox
+            width={scrollBoxWidth}
+            height={scrollBoxHeight}
+            items={items}
+          />
+        </pixiContainer>
+
       </pixiContainer>
     </pixiContainer>
   )

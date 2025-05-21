@@ -2,6 +2,7 @@ import {
   Application,
   extend,
 } from '@pixi/react'
+import { ScrollBox } from '@pixi/ui'
 import {
   Container,
   Graphics,
@@ -19,6 +20,7 @@ extend({
   Graphics,
   Sprite,
   Text,
+  ScrollBox,
 })
 
 let dpr = (window.devicePixelRatio || 1)

@@ -11,9 +11,15 @@ importers:
       '@pixi/react':
         specifier: ^8.0.2
         version: 8.0.2(@types/react@19.1.2)(pixi.js@8.9.2)(react@19.1.0)
+      '@pixi/ui':
+        specifier: ^2.2.4
+        version: 2.2.4(pixi.js@8.9.2)
       gsap:
         specifier: ^3.13.0
         version: 3.13.0
+      pixi-viewport:
+        specifier: ^6.0.3
+        version: 6.0.3(pixi.js@8.9.2)
       pixi.js:
         specifier: ^8.2.6
         version: 8.9.2
@@ -552,6 +558,11 @@ packages:
     peerDependencies:
       pixi.js: ^8.2.6
       react: '>=19.0.0'
+
+  '@pixi/ui@2.2.4':
+    resolution: {integrity: sha512-/OVdrC5F7qomRsAubHOtgiOSWLM85Yrod6MMgVQnD/qTDj4OSaxlmx2l8dMFUX6Bjslkl9dUN92vv8bM103BnQ==}
+    peerDependencies:
+      pixi.js: ^8.6.2
 
   '@pkgr/core@0.1.2':
     resolution: {integrity: sha512-fdDH1LSGfZdTH2sxdpVMw31BanV28K/Gry0cVFxaNP77neJSkd82mM8ErPNYs9e+0O7SdHBLTDzDgwUuy18RnQ==}
@@ -2308,6 +2319,11 @@ packages:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
 
+  pixi-viewport@6.0.3:
+    resolution: {integrity: sha512-2+qPJ0/n+8hQYhWvY+795+x9y3MiUrCOWacK0DY53whowWaGdx9iDocy7z1pBwjkZhC52YvrJQuZKK0sdVLtBw==}
+    peerDependencies:
+      pixi.js: '>=8'
+
   pixi.js@8.9.2:
     resolution: {integrity: sha512-oLFBkOOA/O6OpT5T8o05AxgZB9x9yWNzEQ+WTNZZFoCvfU2GdT4sFTjpVFuHQzgZPmAm/1IFhKdNiXVnlL8PRw==}
 
@@ -2718,6 +2734,9 @@ packages:
   turbo-stream@2.4.0:
     resolution: {integrity: sha512-FHncC10WpBd2eOmGwpmQsWLDoK4cqsA/UT/GqNoaKOQnT8uzhtCbg3EoUDMvqpOSAI0S26mr0rkjzbOO6S3v1g==}
 
+  tweedle.js@2.1.0:
+    resolution: {integrity: sha512-0ReQgVjepoZkE6t0upWNgCRbplHkQJQYk1LStXugwSR728GLFmGDRuaQJlxeC/iBlxud6+P1RdODjaO25vHAqw==}
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -2737,6 +2756,9 @@ packages:
   type-is@2.0.1:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
+
+  typed-signals@2.5.0:
+    resolution: {integrity: sha512-m9lHc3eBCJerXYdx+G0uWZihyUXdqTzzgOdqiDDsoUo75WjhFJH6vP5/6w/xhyu04zoxHUqgYhf9FEt85dk/Ng==}
 
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
@@ -3440,6 +3462,12 @@ snapshots:
       react-reconciler: 0.31.0(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
+
+  '@pixi/ui@2.2.4(pixi.js@8.9.2)':
+    dependencies:
+      pixi.js: 8.9.2
+      tweedle.js: 2.1.0
+      typed-signals: 2.5.0
 
   '@pkgr/core@0.1.2': {}
 
@@ -5459,6 +5487,10 @@ snapshots:
 
   picomatch@4.0.2: {}
 
+  pixi-viewport@6.0.3(pixi.js@8.9.2):
+    dependencies:
+      pixi.js: 8.9.2
+
   pixi.js@8.9.2:
     dependencies:
       '@pixi/colord': 2.9.6
@@ -5908,6 +5940,8 @@ snapshots:
 
   turbo-stream@2.4.0: {}
 
+  tweedle.js@2.1.0: {}
+
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -5923,6 +5957,8 @@ snapshots:
       content-type: 1.0.5
       media-typer: 1.1.0
       mime-types: 3.0.1
+
+  typed-signals@2.5.0: {}
 
   typescript@5.8.3: {}
 
