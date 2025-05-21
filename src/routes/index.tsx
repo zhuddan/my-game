@@ -1,10 +1,9 @@
 // import { lazy, Suspense } from 'react'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 // import PendingFeedback from '~/components/pending-feedback'
-import Layout from '~/layout'
 import About from '~/pages/About'
 import Game from '~/pages/Game'
-import Index from '~/pages/Index'
+import Index from '~/pages/Home'
 import NotFound from '~/pages/NotFound'
 
 // const Home = lazy(() => import('~/pages/home'))
@@ -54,8 +53,8 @@ const router = createHashRouter([
 
 export default function AppRooter() {
   return (
-    <Layout>
-      <RouterProvider router={router} />
-    </Layout>
+    // <Layout>
+    // </Layout>
+    <RouterProvider router={router} />
   )
 }

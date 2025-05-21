@@ -20,6 +20,12 @@ export enum Theme {
   bg = '#fbeeba',
 
   /**
+   * 奶茶黄色背景
+   * https://zhuddan.github.io/docs/css/color-opacity?color=%23000000
+   */
+  masBg = '#000000CC',
+
+  /**
    * 主文字颜色
    */
   textPrimary = '#212121',
@@ -38,7 +44,6 @@ export enum Theme {
    * 边框颜色（温和的灰色）
    */
   border = '#dcdcdc',
-
 }
 
 export enum DESIGN {

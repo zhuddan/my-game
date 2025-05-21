@@ -35,7 +35,7 @@ export default function ProgressBar({
       <pixiGraphics
         draw={(graphics: Graphics) => {
           graphics.clear()
-          graphics.setFillStyle({ color: Theme.border })
+          graphics.setFillStyle({ color: Theme.primaryLight })
           graphics.roundRect(0, 0 + 50, PROGRESS_BAR_WIDTH, 60, 10)
           graphics.fill()
         }}

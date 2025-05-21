@@ -11,6 +11,7 @@ interface ButtonProps {
   children?: ReactNode
   fontSize?: string
   color?: string
+  round?: boolean
   onClick?: () => void
 }
 
@@ -29,12 +30,21 @@ export default function Button({
   y,
   children,
   width = ButtonDefaultProps.width,
-  height = ButtonDefaultProps.height,
+  height: _height = ButtonDefaultProps.height,
   color = ButtonDefaultProps.color,
   fontSize = ButtonDefaultProps.fontSize,
-  radius = 10,
+  radius: _radius = 10,
+  round = false,
 }: ButtonProps) {
   const [isActive, setIsActive] = useState(false)
+
+  const height = useMemo(() => {
+    return round ? width : _height
+  }, [_height, round, width])
+
+  const radius = useMemo(() => {
+    return round ? width : _radius
+  }, [_radius, round, width])
 
   // 计算偏移量
   const offset = useMemo(() => {
@@ -44,14 +54,17 @@ export default function Button({
   // 绘制按钮
   const draw = useCallback((graphics: Graphics) => {
     graphics.clear()
-    graphics.setFillStyle({ color: Theme.primary })
-    graphics.roundRect(0 + offset, 0 + offset, width, height, radius)
-    graphics.fill()
 
     graphics.roundRect(0 + MAX_OFFSET, 0 + MAX_OFFSET, width, height, radius)
     graphics.setStrokeStyle({ color: Theme.primary, width: 2 })
     graphics.stroke()
-  }, [height, offset, radius, width])
+
+    graphics.setFillStyle({
+      color: isActive ? Theme.primaryDark : Theme.primary,
+    })
+    graphics.roundRect(0 + offset, 0 + offset, width, height, radius)
+    graphics.fill()
+  }, [height, isActive, offset, radius, width])
 
   // 统一的点击/触摸处理逻辑
   const handlePointerDown = useCallback(() => {
@@ -84,7 +97,6 @@ export default function Button({
       y={y}
       eventMode="static"
       cursor="pointer"
-      // 移除onClick，完全依赖pointer事件
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
       onPointerUpOutside={handlePointerOut} // 添加这个处理在按钮外释放的情况

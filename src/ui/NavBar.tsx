@@ -10,8 +10,7 @@ export default function NavBar({ title }: { title?: string }) {
       <Button
         onClick={() => navigate(-1)}
         width={80}
-        height={80}
-        radius={80}
+        round
         x={15}
         y={15}
       >

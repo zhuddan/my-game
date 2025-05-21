@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DESIGN } from '~/constants/config'
-import Button, { ButtonDefaultProps } from './Button'
+import Button, { ButtonDefaultProps } from '../Button'
+import Modal from '../Modal'
 
 type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '关于我们'
 
@@ -36,20 +37,23 @@ export default function HomeActions() {
     }
   }, [navigate])
   return (
-    <pixiContainer y={500} x={(DESIGN.WIDTH - ButtonDefaultProps.width) / 2}>
-      {
-        btns.map((it) => {
-          return (
-            <Button
-              key={it.text}
-              y={it.y}
-              onClick={() => handleClickButton(it.text)}
-            >
-              {it.text}
-            </Button>
-          )
-        })
-      }
-    </pixiContainer>
+    <>
+      <pixiContainer y={500} x={(DESIGN.WIDTH - ButtonDefaultProps.width) / 2}>
+        {
+          btns.map((it) => {
+            return (
+              <Button
+                key={it.text}
+                y={it.y}
+                onClick={() => handleClickButton(it.text)}
+              >
+                {it.text}
+              </Button>
+            )
+          })
+        }
+      </pixiContainer>
+      <Modal />
+    </>
   )
 }

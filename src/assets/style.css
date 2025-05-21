@@ -13,6 +13,7 @@ body {
   --bg-morning: url('/my-game/images/morning.PNG');
   --bg-bg: url('/my-game/images/bg.jpg');
 }
+
 #root {
   height: 100%;
   width: 100%;

@@ -1,7 +1,7 @@
-import HomeActions from '~/ui/HomeActions'
+import HomeActions from '~/ui/home/HomeActions'
 import Title from '~/ui/Title'
 
-export default function Index() {
+export default function Home() {
   return (
     <>
       <Title />
