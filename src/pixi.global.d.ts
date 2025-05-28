@@ -1,8 +1,10 @@
 import type { PixiReactElementProps } from '@pixi/react'
-import type { ScrollBox } from '@pixi/ui'
+import type { Scrollbox } from 'pixi-scrollbox'
+import type { Viewport } from 'pixi-viewport'
 
 declare module '@pixi/react' {
   interface PixiElements {
-    pixiScrollBox: PixiReactElementProps<typeof ScrollBox>
+    pixiScrollbox: PixiReactElementProps<typeof Scrollbox>
+    pixiViewport: PixiReactElementProps<typeof Viewport>
   }
 }

@@ -5,28 +5,7 @@ import About from '~/pages/About'
 import Game from '~/pages/Game'
 import Index from '~/pages/Home'
 import NotFound from '~/pages/NotFound'
-
 // const Home = lazy(() => import('~/pages/home'))
-
-// function SuspenseWrapper({
-//   children,
-//   className,
-// }: {
-//   className?: string
-//   children: React.ReactNode
-// }) {
-//   return (
-//     <Suspense
-//       fallback={(
-//         <PendingFeedback
-//           className={className}
-//         />
-//       )}
-//     >
-//       {children}
-//     </Suspense>
-//   )
-// }
 
 const router = createHashRouter([
   {
@@ -53,8 +32,6 @@ const router = createHashRouter([
 
 export default function AppRooter() {
   return (
-    // <Layout>
-    // </Layout>
     <RouterProvider router={router} />
   )
 }

@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react'
 import {
   Application,
   extend,
 } from '@pixi/react'
-import { ScrollBox } from '@pixi/ui'
+import { Scrollbox } from 'pixi-scrollbox'
+import { Viewport } from 'pixi-viewport'
 import {
   Container,
   Graphics,
@@ -12,15 +14,19 @@ import {
 import { useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { DESIGN } from '~/constants/config'
+
 import Loading from '~/ui/Loading'
 import AppRooter from './routes'
+import ErrorElement from './ui/error/ErrorElement'
+import GridLine from './ui/GridLine'
 
 extend({
   Container,
   Graphics,
   Sprite,
+  Scrollbox,
   Text,
-  ScrollBox,
+  Viewport,
 })
 
 let dpr = (window.devicePixelRatio || 1)
@@ -41,6 +47,7 @@ export default function App() {
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>
       <div className="game-canvas">
+
         <Application
           resolution={dpr}
           autoDensity
@@ -51,36 +58,14 @@ export default function App() {
           defaultTextStyle={{ fontFamily: 'FusionPixel' }}
           sharedTicker
         >
-          {/* debug */}
-          <pixiGraphics
-            draw={(g) => {
-              g.clear()
-              g.setStrokeStyle({
-                color: 0xCCCCCC,
-                width: 2,
-              })
-              let x = 0
-              while (x <= DESIGN.WIDTH) {
-                g.moveTo(x, 0)
-                g.lineTo(x, DESIGN.HEIGHT)
-                x += 75
-              }
-              g.stroke()
-
-              let y = 0
-              while (y < DESIGN.HEIGHT) {
-                g.moveTo(0, y)
-                g.lineTo(DESIGN.HEIGHT, y)
-                y += 75
-              }
-              g.stroke()
-            }}
-          />
-          {
-            isLoad
-              ? <AppRooter />
-              : <Loading onFinish={() => setIsLoad(true)} />
-          }
+          <GridLine />
+          <ErrorElement>
+            {
+              isLoad
+                ? <AppRooter />
+                : <Loading onFinish={() => setIsLoad(true)} />
+            }
+          </ErrorElement>
         </Application>
       </div>
     </div>
