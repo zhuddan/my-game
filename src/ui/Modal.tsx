@@ -1,8 +1,8 @@
 import type { Viewport } from 'pixi-viewport'
-import type { Container } from 'pixi.js'
+import type { Container, Text } from 'pixi.js'
 import { useApplication } from '@pixi/react'
 import gsap from 'gsap'
-import { Graphics, TextStyle } from 'pixi.js'
+import { Graphics, Rectangle, TextStyle } from 'pixi.js'
 import { useCallback, useEffect, useRef } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
 import RoundButton from './RoundButton'
@@ -124,16 +124,16 @@ export default function Modal({
   const { app } = useApplication()
   const style = new TextStyle({
     fontFamily: 'Arial',
-    fontSize: 24,
+    fontSize: 32,
     fontStyle: 'italic',
     fontWeight: 'bold',
     stroke: { color: '#4a1850', width: 5, join: 'round' },
-    dropShadow: {
-      color: '#000000',
-      blur: 4,
-      angle: Math.PI / 6,
-      distance: 6,
-    },
+    // dropShadow: {
+    //   color: '#000000',
+    //   blur: 4,
+    //   angle: Math.PI / 6,
+    //   distance: 6,
+    // },
     wordWrap: true,
     wordWrapWidth: scrollWidth,
     whiteSpace: 'pre',
@@ -141,23 +141,35 @@ export default function Modal({
   })
 
   const viewportRef = useRef<Viewport | null>(null)
+  const textRef = useRef<Text | null>(null)
 
   useEffect(() => {
-    if (viewportRef.current) {
-      viewportRef.current.drag({
-        direction: 'y',
-      })// .pinch().wheel().decelerate()
-        .bounce({
-        // sides: 'vertical',
+    const viewport = viewportRef.current
+    if (viewport) {
+      viewport
+        .drag({
+          direction: 'y',
+        })
+        .clamp({
+          left: 0,
+          right: width,
+          top: 500,
+          bottom: 100,
         })
 
-      const line = viewportRef.current.addChild(new Graphics())
+      const line = viewport.addChild(new Graphics())
       line.setStrokeStyle({
         width: 10,
         color: 0xFF0000,
       })
-      line.rect(0, 0, viewportRef.current.worldWidth, viewportRef.current.worldHeight)
+      line.rect(0, 0, viewport.worldWidth, viewport.worldHeight)
       line.stroke()
+    }
+  }, [width])
+
+  useEffect(() => {
+    if (textRef.current) {
+      console.log(textRef.current.height)
     }
   }, [])
 
@@ -165,12 +177,14 @@ export default function Modal({
     <pixiContainer visible={open} ref={containerRef} alpha={0}>
       <pixiGraphics
         eventMode="static"
-        draw={(g) => {
-          g.clear()
-          g.rect(0, 0, DESIGN.WIDTH, DESIGN.HEIGHT)
-          g.setFillStyle({ color: Theme.masBg })
-          g.fill()
-        }}
+        draw={
+          (g) => {
+            g.clear()
+            g.rect(0, 0, DESIGN.WIDTH, DESIGN.HEIGHT)
+            g.setFillStyle({ color: Theme.masBg })
+            g.fill()
+          }
+        }
       >
       </pixiGraphics>
       <pixiContainer
@@ -218,15 +232,20 @@ export default function Modal({
           y={-scrollHeight / 2}
         >
           <pixiViewport
-            worldHeight={scrollHeight}
-            worldWidth={scrollWidth}
+            {
+              ...{
+                screenWidth: scrollWidth,
+                screenHeight: scrollHeight,
+                worldWidth: scrollWidth,
+                worldHeight: 977,
+              }
+            }
             events={app.renderer.events}
             ref={viewportRef}
           >
-            <pixiText text={t} style={style}></pixiText>
+            <pixiText ref={textRef} text={t} style={style}></pixiText>
           </pixiViewport>
         </pixiContainer>
-
       </pixiContainer>
     </pixiContainer>
   )
