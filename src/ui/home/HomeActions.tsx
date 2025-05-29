@@ -2,9 +2,10 @@ import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DESIGN } from '~/constants/config'
 import Button, { ButtonDefaultProps } from '../Button'
+import GameRule from '../game/GameRule'
 import Modal from '../Modal'
 
-type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '关于我们'
+type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '游戏规则' | '关于我们'
 
 export default function HomeActions() {
   const navigate = useNavigate()
@@ -12,7 +13,8 @@ export default function HomeActions() {
     return ([
       '开始游戏',
       // '继续游戏',
-      '关卡选择',
+      // '关卡选择',
+      '游戏规则',
       '设置',
       '关于我们',
     ] satisfies BtnTexts[]).map((text, index) => {
@@ -22,8 +24,7 @@ export default function HomeActions() {
       }
     })
   }, [])
-  const [open, setOpen] = useState(false)
-
+  const [ruleOpen, setRuleOpen] = useState(false)
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
       case '开始游戏':
@@ -32,8 +33,8 @@ export default function HomeActions() {
       case '关于我们':
         navigate('./about')
         break
-      case '设置':
-        setOpen(true)
+      case '游戏规则':
+        setRuleOpen(true)
         break
       default:
     }
@@ -56,9 +57,15 @@ export default function HomeActions() {
         }
       </pixiContainer>
       <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-      />
+        open={ruleOpen}
+        onClose={() => setRuleOpen(false)}
+      >
+        {
+          (w) => {
+            return <GameRule contentWidth={w} />
+          }
+        }
+      </Modal>
     </>
   )
 }

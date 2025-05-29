@@ -1,21 +1,19 @@
-import type { Viewport } from 'pixi-viewport'
-import type { Container, Graphics, Text } from 'pixi.js'
-import { useApplication } from '@pixi/react'
+import type { Container, Graphics } from 'pixi.js'
+import type { ReactNode } from 'react'
 import gsap from 'gsap'
-import { Rectangle, TextStyle } from 'pixi.js'
 import { useCallback, useEffect, useRef } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
 import RoundButton from './RoundButton'
+import ScrollView from './ScrollView'
 import Cross from './shape/Cross'
 
 interface ModalProps {
   width?: number
   height?: number
+  children?: (contentWidth: number, contentHeight: number) => ReactNode
   open: boolean
   onClose: () => void
 }
-const t = `规则\n，是运行、运作规律所遵循的法则。规则，一般指由群众共同制定、公认或由代表人统一制定并通过的，由群体里的所有成员一起遵守的条例和章程。它存在三种形式：明规则、潜规则、元规则，无论何种规则只要违背善恶的道德必须严惩不贷以维护世间和谐；明规则是有明文规定的规则，存在需要不断完善的局限性；潜规则是无明文规定的规则，约定俗成无局限性，可弥补明规则不足之处；元规则是一种以暴力竞争解决问题的规则，善恶参半，非道德之理的文明之道。
-规则的三种形式，受人为因素制约，是人类发展过程中形成与创建。在科学体系里，规律和定理是极为重要的构成部分，本质上，它们是人类对自然界各种规则的解读与归纳。一个因人存在的规则与自然界潜在的法则，都属于规则。`
 
 /**
  * 弹窗动画
@@ -74,13 +72,19 @@ function useModalAnimate(
   }
 }
 
+const DefaultModalProps: Required<Omit<ModalProps, 'open' | 'onClose' | 'children'>> = {
+  width: 75 * 6,
+  height: 600,
+}
+const borderWidth = 20
+
 export default function Modal({
-  width = 75 * 6,
-  height = 600,
+  width = DefaultModalProps.width,
+  height = DefaultModalProps.height,
   open,
   onClose,
+  children,
 }: ModalProps) {
-  const borderWidth = 20
   const draw = useCallback((g: Graphics) => {
     g.clear()
     g.setFillStyle({ color: Theme.bg })
@@ -88,7 +92,6 @@ export default function Modal({
       color: Theme.primaryDark,
       width: borderWidth,
     })
-
     g.roundRect(
       -width / 2,
       -height / 2,
@@ -124,56 +127,6 @@ export default function Modal({
   const contentHeight = scrollHeight - padding
 
   const { contentRef, containerRef, handleClose } = useModalAnimate(open, onClose)
-  const { app } = useApplication()
-  const style = new TextStyle({
-    fontFamily: 'Arial',
-    fontSize: 32,
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    // stroke: { color: '#4a1850', width: 5, join: 'round' },
-    wordWrap: true,
-    wordWrapWidth: contentWidth,
-    whiteSpace: 'pre',
-    breakWords: true,
-  })
-
-  const viewportRef = useRef<Viewport | null>(null)
-  const textRef = useRef<Text | null>(null)
-
-  useEffect(() => {
-    const viewport = viewportRef.current
-    const text = textRef.current
-    if (viewport && text) {
-      viewport
-        .drag({
-          direction: 'y',
-        })
-        .clamp({
-          left: 0,
-          right: width,
-          top: 0,
-          bottom: text.height,
-        })
-
-      // const line = viewport.addChild(new Graphics())
-      // line.setStrokeStyle({
-      //   width: 10,
-      //   color: 0xFF0000,
-      // })
-      // line.rect(0, 0, viewport.worldWidth, viewport.worldHeight)
-      // line.stroke()
-    }
-  }, [height, width])
-
-  const mask = useRef<Graphics>(null)
-  const ref = useRef<Container | null>(null)
-
-  useEffect(() => {
-    if (ref.current) {
-      console.log(ref.current)
-    }
-  }, [])
-
   return (
     <pixiContainer visible={open} ref={containerRef} alpha={0}>
       <pixiGraphics
@@ -215,43 +168,14 @@ export default function Modal({
             stroke: { color: '#4a1850', width: 5, join: 'round' },
           }}
         />
-
-        <pixiContainer
+        <ScrollView
           x={-contentWidth / 2}
           y={-contentHeight / 2 + 50}
-          ref={ref}
-          mask={mask.current}
+          scrollWidth={contentWidth}
+          scrollHeight={contentHeight - 50}
         >
-          <pixiGraphics
-            alpha={0.5}
-            draw={(g) => {
-              g.clear()
-              g.rect(0, 0, contentWidth, contentHeight - 50)
-              g.setFillStyle({ color: '#fff000' })
-              g.fill()
-            }}
-            ref={mask}
-          />
-          <pixiViewport
-            {
-              ...{
-                screenWidth: contentWidth,
-                screenHeight: contentHeight - 50,
-                worldWidth: contentWidth,
-              }
-            }
-            events={app.renderer.events}
-            ref={viewportRef}
-          >
-
-            <pixiText
-              ref={textRef}
-              text={t}
-              style={style}
-            >
-            </pixiText>
-          </pixiViewport>
-        </pixiContainer>
+          {children?.(contentWidth, contentHeight)}
+        </ScrollView>
       </pixiContainer>
     </pixiContainer>
   )
