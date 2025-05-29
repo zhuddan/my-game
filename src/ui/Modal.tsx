@@ -4,13 +4,13 @@ import gsap from 'gsap'
 import { useCallback, useEffect, useRef } from 'react'
 import { DESIGN, Theme } from '~/constants/config'
 import RoundButton from './RoundButton'
-import ScrollView from './ScrollView'
 import Cross from './shape/Cross'
 
 interface ModalProps {
+  title: string
   width?: number
   height?: number
-  children?: (contentWidth: number, contentHeight: number) => ReactNode
+  children?: ReactNode
   open: boolean
   onClose: () => void
 }
@@ -72,15 +72,11 @@ function useModalAnimate(
   }
 }
 
-const DefaultModalProps: Required<Omit<ModalProps, 'open' | 'onClose' | 'children'>> = {
-  width: 75 * 6,
-  height: 600,
-}
 const borderWidth = 20
-
 export default function Modal({
-  width = DefaultModalProps.width,
-  height = DefaultModalProps.height,
+  width = 450, // 75 * 6
+  height = 600,
+  title,
   open,
   onClose,
   children,
@@ -110,21 +106,13 @@ export default function Modal({
       titleHeight,
       20,
     )
-
     g.setStrokeStyle({
       color: Theme.primaryDark,
       width: 15,
     })
-
     g.fill()
     g.stroke()
   }, [height, width])
-
-  const scrollWidth = width - borderWidth
-  const scrollHeight = height - borderWidth
-  const padding = 50
-  const contentWidth = scrollWidth - padding
-  const contentHeight = scrollHeight - padding
 
   const { contentRef, containerRef, handleClose } = useModalAnimate(open, onClose)
   return (
@@ -156,26 +144,24 @@ export default function Modal({
           <Cross />
         </RoundButton>
         <pixiText
-          text="设置"
-          x={0}
+          text={title}
           y={-height / 2}
           anchor={0.5}
           style={{
             align: 'center',
             fill: Theme.primary,
-            fontSize: '66',
+            fontSize: title.length === 2
+              ? '66'
+              : '50',
             fontWeight: '600',
-            stroke: { color: '#4a1850', width: 5, join: 'round' },
+            stroke: {
+              color: '#4a1850',
+              width: 5,
+              join: 'round',
+            },
           }}
         />
-        <ScrollView
-          x={-contentWidth / 2}
-          y={-contentHeight / 2 + 50}
-          scrollWidth={contentWidth}
-          scrollHeight={contentHeight - 50}
-        >
-          {children?.(contentWidth, contentHeight)}
-        </ScrollView>
+        {children}
       </pixiContainer>
     </pixiContainer>
   )

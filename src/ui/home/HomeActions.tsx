@@ -25,6 +25,8 @@ export default function HomeActions() {
     })
   }, [])
   const [ruleOpen, setRuleOpen] = useState(false)
+  const [settingOpen, setSettingOpen] = useState(false)
+
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
       case '开始游戏':
@@ -36,12 +38,19 @@ export default function HomeActions() {
       case '游戏规则':
         setRuleOpen(true)
         break
+      case '设置':
+        setSettingOpen(true)
+        break
       default:
     }
   }, [navigate])
+
   return (
     <>
-      <pixiContainer y={500} x={(DESIGN.WIDTH - ButtonDefaultProps.width) / 2}>
+      <pixiContainer
+        y={500}
+        x={(DESIGN.WIDTH - ButtonDefaultProps.width) / 2}
+      >
         {
           btns.map((it) => {
             return (
@@ -57,14 +66,17 @@ export default function HomeActions() {
         }
       </pixiContainer>
       <Modal
+        title="游戏规则"
         open={ruleOpen}
         onClose={() => setRuleOpen(false)}
       >
-        {
-          (w) => {
-            return <GameRule contentWidth={w} />
-          }
-        }
+        <GameRule />
+      </Modal>
+      <Modal
+        title="设置"
+        open={settingOpen}
+        onClose={() => setSettingOpen(false)}
+      >
       </Modal>
     </>
   )

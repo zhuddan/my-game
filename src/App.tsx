@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import {
   Application,
   extend,
@@ -47,7 +46,6 @@ export default function App() {
   return (
     <div id="game-container" className={isWideScreen ? 'wide' : 'long'}>
       <div className="game-canvas">
-
         <Application
           resolution={dpr}
           autoDensity
