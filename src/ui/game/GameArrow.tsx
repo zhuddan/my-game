@@ -2,10 +2,21 @@ import { useTick } from '@pixi/react'
 import { useState } from 'react'
 import { DESIGN } from '~/constants/config'
 
-export default function GameArrow() {
+interface GameArrowProps {
+  run?: boolean
+  stop?: () => void
+}
+
+export default function GameArrow({
+  run = false,
+}: GameArrowProps) {
   const [y, setY] = useState(DESIGN.HEIGHT)
   useTick({
     callback: () => {
+      if (y <= -DESIGN.HEIGHT) {
+        stop()
+        return
+      }
       setY((y) => {
         if (y <= -DESIGN.HEIGHT) {
           return DESIGN.HEIGHT
@@ -13,7 +24,7 @@ export default function GameArrow() {
         return y -= 10
       })
     },
-    isEnabled: false,
+    isEnabled: run,
   })
   const w = 20
   const h = 120
