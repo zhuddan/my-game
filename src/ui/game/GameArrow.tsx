@@ -1,45 +1,33 @@
-import { useTick } from '@pixi/react'
-import { useState } from 'react'
 import { DESIGN } from '~/constants/config'
 
-interface GameArrowProps {
-  run?: boolean
-  stop?: () => void
+type GameArrowProps = PixiContainerProps & {
+  color?: string
 }
 
 export default function GameArrow({
-  run = false,
+  x = DESIGN.WIDTH / 2,
+  y = 0,
+  color = 'black',
+  ...rest
 }: GameArrowProps) {
-  const [y, setY] = useState(DESIGN.HEIGHT)
-  useTick({
-    callback: () => {
-      if (y <= -DESIGN.HEIGHT) {
-        stop()
-        return
-      }
-      setY((y) => {
-        if (y <= -DESIGN.HEIGHT) {
-          return DESIGN.HEIGHT
-        }
-        return y -= 10
-      })
-    },
-    isEnabled: run,
-  })
-  const w = 20
-  const h = 120
+  const w = 4
+  const h = 200
   return (
     <pixiContainer
       y={y}
-      anchor={{ x: 0.5, y: 1 }}
-      x={DESIGN.WIDTH / 2}
+      x={x}
+      {
+        ...rest
+      }
     >
       <pixiGraphics
         draw={(g) => {
           g.clear()
-          g.roundRect(-w / 2, -h, w, h)
+          g.circle(0, h, 10)
+
+          g.roundRect(-w / 2, 0, w, h)
           g.setFillStyle({
-            color: '#ffcffc',
+            color,
           })
           g.fill()
         }}

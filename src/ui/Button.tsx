@@ -1,14 +1,9 @@
 import type { Graphics } from 'pixi.js'
-import { type ReactNode, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Theme } from '~/constants/config'
 
-export interface ButtonProps {
-  x?: number
-  y?: number
-  width?: number
-  height?: number
+export type ButtonProps = PixiContainerProps & {
   radius?: number
-  children?: ReactNode
   fontSize?: string
   color?: string
   onClick?: () => void
@@ -33,6 +28,7 @@ export default function Button({
   color = ButtonDefaultProps.color,
   fontSize = ButtonDefaultProps.fontSize,
   radius = 10,
+  ...rest
 }: ButtonProps) {
   const [isActive, setIsActive] = useState(false)
 
@@ -92,7 +88,7 @@ export default function Button({
       onPointerUpOutside={handlePointerOut} // 添加这个处理在按钮外释放的情况
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
-
+      {...rest}
     >
       <pixiGraphics draw={draw} />
       {

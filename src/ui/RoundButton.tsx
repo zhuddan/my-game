@@ -1,7 +1,7 @@
 import type { ButtonProps } from './Button'
 import Button from './Button'
 
-interface RoundButtonProps extends ButtonProps {}
+type RoundButtonProps = ButtonProps & {}
 export default function RoundButton({
   width = 80,
   height = 80,

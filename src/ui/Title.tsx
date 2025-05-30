@@ -12,7 +12,7 @@ interface TitleProps extends PixiTextProps {
 export default function Title({
   size = 'default',
   animate = true,
-  title = '做杯奶茶吧',
+  title = '见缝插针',
   x = DESIGN.WIDTH / 2,
   y = 150,
   ...rest
