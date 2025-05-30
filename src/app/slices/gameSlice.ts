@@ -1,5 +1,6 @@
 import type { RootState } from '../store'
 import { createSlice } from '@reduxjs/toolkit'
+import { GameConfig } from '~/config'
 import { DESIGN } from '~/constants/config'
 
 export enum GameStatus {
@@ -9,7 +10,8 @@ export enum GameStatus {
 
 // const oneDeg = Math.PI / 180
 
-const defaultY = DESIGN.HEIGHT - 200 - 5
+const defaultY = DESIGN.HEIGHT
+  - GameConfig.arrowHeight - GameConfig.arrowBallRadius
 
 // Define a type for the slice state
 export interface GameState {

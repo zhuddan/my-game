@@ -2,7 +2,11 @@ export const GameConfig = {
   /**
    * 旋转靶半径
    */
-  gameTargetRadius: 200,
+  gameTargetRadius: 100,
+  /**
+   * 旋转靶 y 坐标
+   */
+  gameTargeY: 500,
   /**
    * 箭高度
    */
