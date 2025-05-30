@@ -7,7 +7,7 @@ export enum GameStatus {
   END = 'END',
 }
 
-const oneDeg = Math.PI / 180
+// const oneDeg = Math.PI / 180
 
 const defaultY = DESIGN.HEIGHT - 200 - 5
 
@@ -49,7 +49,7 @@ export const GameSlice = createSlice({
       if (state.arrowY <= 500 + 100) {
         state.isShotting = false
         for (let index = 0; index < state.targetNeedles.length; index++) {
-          const element = state.targetNeedles[index]
+          // const element = state.targetNeedles[index]
         }
         state.targetNeedles.push(state.targetRotation)
         // state.gameStatus = GameStatus.END
