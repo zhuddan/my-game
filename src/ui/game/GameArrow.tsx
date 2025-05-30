@@ -24,7 +24,6 @@ export default function GameArrow({
         draw={(g) => {
           g.clear()
           g.circle(0, h, 10)
-
           g.roundRect(-w / 2, 0, w, h)
           g.setFillStyle({
             color,

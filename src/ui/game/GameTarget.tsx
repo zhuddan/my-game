@@ -1,21 +1,15 @@
-import { useTick } from '@pixi/react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { useAppSelector } from '~/app/hooks'
+import { selectTargetNeedles, selectTargetRotation } from '~/app/slices/gameSlice'
 import { DESIGN } from '~/constants/config'
 import BaseSprite from '../BaseSprite'
 import GameArrow from './GameArrow'
 
-interface GameBarProps {
-  needles?: number[]
-}
 const radius = 100
-const EmptyArray: number[] = []
-export default function GameBar({
-  needles = EmptyArray,
-}: GameBarProps) {
-  const [value, setvalue] = useState(0)
-  useTick(() => {
-    setvalue(a => a = (a += 0.01 * 1) % (Math.PI * 2))
-  })
+export default function GameTarget() {
+  const rotation = useAppSelector(selectTargetRotation)
+  const TargetNeedles = useAppSelector(selectTargetNeedles)
+
   function getPosition(angle: number) {
     angle = angle % (2 * Math.PI)
     const x = Math.sin(angle) * radius
@@ -28,15 +22,15 @@ export default function GameBar({
   }
   const data = useMemo(() => {
     const deg = Math.PI / 180
-    return needles.map(e => ({
+    return TargetNeedles.map(e => ({
       key: e,
       ...getPosition(deg * e),
     }))
-  }, [needles])
+  }, [TargetNeedles])
   return (
     <pixiContainer
       y={500}
-      rotation={value}
+      rotation={rotation}
       anchor={0.5}
       x={DESIGN.WIDTH / 2}
     >

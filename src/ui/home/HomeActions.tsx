@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '~/app/hooks'
+import { playGame } from '~/app/slices/gameSlice'
 import { DESIGN } from '~/constants/config'
 import Button, { ButtonDefaultProps } from '../Button'
 import GameRule from '../game/GameRule'
@@ -26,10 +28,12 @@ export default function HomeActions() {
   }, [])
   const [ruleOpen, setRuleOpen] = useState(false)
   const [settingOpen, setSettingOpen] = useState(false)
+  const dispatch = useAppDispatch()
 
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
       case '开始游戏':
+        dispatch(playGame())
         navigate('./game')
         break
       case '关于我们':
