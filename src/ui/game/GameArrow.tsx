@@ -1,3 +1,4 @@
+import { GameConfig } from '~/config'
 import { DESIGN } from '~/constants/config'
 
 type GameArrowProps = PixiContainerProps & {
@@ -10,8 +11,6 @@ export default function GameArrow({
   color = 'black',
   ...rest
 }: GameArrowProps) {
-  const w = 4
-  const h = 200
   return (
     <pixiContainer
       y={y}
@@ -23,8 +22,8 @@ export default function GameArrow({
       <pixiGraphics
         draw={(g) => {
           g.clear()
-          g.circle(0, h, 50)
-          g.roundRect(-w / 2, 0, w, h)
+          g.circle(0, GameConfig.arrowHeight, GameConfig.arrowBallRadius)
+          g.roundRect(-GameConfig.arrowWidth / 2, 0, GameConfig.arrowWidth, GameConfig.arrowHeight)
           g.setFillStyle({
             color,
           })
