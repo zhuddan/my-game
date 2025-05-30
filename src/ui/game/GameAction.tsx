@@ -3,6 +3,7 @@ import { DESIGN } from '~/constants/config'
 export default function GameAction() {
   const diff = 150
   function don() {
+    // eslint-disable-next-line no-console
     console.log('1')
   }
   return (
