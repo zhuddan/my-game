@@ -21,10 +21,9 @@ export default function GameTarget() {
     }
   }
   const data = useMemo(() => {
-    const deg = Math.PI / 180
     return TargetNeedles.map(e => ({
       key: e,
-      ...getPosition(deg * e),
+      ...getPosition(e),
     }))
   }, [TargetNeedles])
   return (

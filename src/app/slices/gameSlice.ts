@@ -6,6 +6,11 @@ export enum GameStatus {
   PLAY = 'PLAY',
   END = 'END',
 }
+
+const oneDeg = Math.PI / 180
+
+const defaultY = DESIGN.HEIGHT - 200 - 5
+
 // Define a type for the slice state
 export interface GameState {
   gameStatus: GameStatus
@@ -14,16 +19,17 @@ export interface GameState {
   targetRotation: number
   arrowY: number
 }
-
+const diff = 50 / (305)
 // Define the initial state using that type
 const initialState: GameState = {
   gameStatus: GameStatus.PLAY,
   isShotting: false,
   targetNeedles: [
     0,
+    diff * 2,
   ],
   targetRotation: 0,
-  arrowY: DESIGN.HEIGHT - 200 - 5,
+  arrowY: defaultY,
 } satisfies GameState
 
 export const GameSlice = createSlice({
@@ -42,13 +48,15 @@ export const GameSlice = createSlice({
     moveArrow(state) {
       if (state.arrowY <= 500 + 100) {
         state.isShotting = false
-        const oneDeg = Math.PI / 180
-        console.log(state.targetRotation / oneDeg)
-        state.targetNeedles.push(Math.PI - state.targetRotation)
-        state.gameStatus = GameStatus.END
+        for (let index = 0; index < state.targetNeedles.length; index++) {
+          const element = state.targetNeedles[index]
+        }
+        state.targetNeedles.push(state.targetRotation)
+        // state.gameStatus = GameStatus.END
+        state.arrowY = defaultY
       }
       else {
-        state.arrowY -= 10
+        state.arrowY -= 11 + state.arrowY / 10
       }
     },
   },

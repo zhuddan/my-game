@@ -47,7 +47,7 @@ export default function HomeActions() {
         break
       default:
     }
-  }, [navigate])
+  }, [dispatch, navigate])
 
   return (
     <>
