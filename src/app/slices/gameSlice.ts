@@ -21,15 +21,12 @@ export interface GameState {
   targetRotation: number
   arrowY: number
 }
-const diff = 50 / (305)
+const diff = GameConfig.arrowBallRadius * 2 / (GameConfig.gameTargetRadius + GameConfig.arrowHeight)
 // Define the initial state using that type
 const initialState: GameState = {
   gameStatus: GameStatus.PLAY,
   isShotting: false,
-  targetNeedles: [
-    0,
-    diff * 2,
-  ],
+  targetNeedles: [],
   targetRotation: 0,
   arrowY: defaultY,
 } satisfies GameState
@@ -45,20 +42,26 @@ export const GameSlice = createSlice({
       state.isShotting = true
     },
     roll(state) {
-      state.targetRotation += 0.005
+      state.targetRotation += 0.009
     },
     moveArrow(state) {
-      if (state.arrowY <= 500 + 100) {
+      const minY = GameConfig.gameTargeY + GameConfig.gameTargetRadius
+      if (state.arrowY <= minY) {
         state.isShotting = false
+        const res = (state.targetRotation + 2 * Math.PI) % (2 * Math.PI)
         for (let index = 0; index < state.targetNeedles.length; index++) {
-          // const element = state.targetNeedles[index]
+          const element = state.targetNeedles[index]
+          if (res < element + diff && res > element - diff) {
+            state.gameStatus = GameStatus.END
+            return
+          }
         }
-        state.targetNeedles.push(state.targetRotation)
-        // state.gameStatus = GameStatus.END
+        state.targetNeedles.push(res)
         state.arrowY = defaultY
       }
       else {
-        state.arrowY -= 11 + state.arrowY / 10
+        const nextArrowY = state.arrowY * 0.98
+        state.arrowY = nextArrowY <= minY ? minY : nextArrowY
       }
     },
   },
@@ -77,5 +80,4 @@ export const selectIsShotting = (state: RootState) => state.game.isShotting
 export const selectTargetNeedles = (state: RootState) => state.game.targetNeedles
 export const selectTargetRotation = (state: RootState) => state.game.targetRotation
 export const selectArrowY = (state: RootState) => state.game.arrowY
-
 export default GameSlice.reducer

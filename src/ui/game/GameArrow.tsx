@@ -22,8 +22,17 @@ export default function GameArrow({
       <pixiGraphics
         draw={(g) => {
           g.clear()
-          g.circle(0, GameConfig.arrowHeight, GameConfig.arrowBallRadius)
-          g.roundRect(-GameConfig.arrowWidth / 2, 0, GameConfig.arrowWidth, GameConfig.arrowHeight)
+          g.circle(
+            0,
+            GameConfig.arrowHeight,
+            GameConfig.arrowBallRadius,
+          )
+          g.roundRect(
+            -GameConfig.arrowWidth / 2,
+            0,
+            GameConfig.arrowWidth,
+            GameConfig.arrowHeight,
+          )
           g.setFillStyle({
             color,
           })

@@ -18,5 +18,5 @@ export const GameConfig = {
   /**
    * 箭把半径
    */
-  arrowBallRadius: 20,
+  arrowBallRadius: 80,
 } as const
