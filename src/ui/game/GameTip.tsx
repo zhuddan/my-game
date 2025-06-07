@@ -84,7 +84,7 @@ export default function GameTip({
     const buttonHeight = 60
     const buttonGap = 40
     const totalWidth = buttonWidth * 2 + buttonGap
-    const startX = -totalWidth / 2 + buttonWidth / 2
+    const startX = -totalWidth / 2
 
     switch (type) {
       case GameTipType.LEVEL_SUCCESS:
