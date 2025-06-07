@@ -6,7 +6,7 @@ import { DESIGN, Theme } from '~/constants/config'
 import RoundButton from './RoundButton'
 import Cross from './shape/Cross'
 
-interface ModalProps {
+export interface ModalProps {
   title: string
   width?: number
   height?: number
