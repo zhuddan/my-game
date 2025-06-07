@@ -1,11 +1,13 @@
 import type { RootState } from '../store'
+import type { LevelConfig } from '~/config'
 import { createSlice } from '@reduxjs/toolkit'
-import { GameConfig } from '~/config'
+import { GameConfig, LevelConfigs } from '~/config'
 import { DESIGN } from '~/constants/config'
 
 export enum GameStatus {
   PLAY = 'PLAY',
   END = 'END',
+  SUCCESS = 'SUCCESS',
 }
 
 // const oneDeg = Math.PI / 180
@@ -20,6 +22,8 @@ export interface GameState {
   targetNeedles: number[]
   targetRotation: number
   arrowY: number
+  currentLevel: number
+  levelConfig: LevelConfig
 }
 const diff = GameConfig.arrowBallRadius * 2 / (GameConfig.gameTargetRadius + GameConfig.arrowHeight)
 // Define the initial state using that type
@@ -29,6 +33,8 @@ const initialState: GameState = {
   targetNeedles: [],
   targetRotation: 0,
   arrowY: defaultY,
+  currentLevel: 0,
+  levelConfig: LevelConfigs[0],
 } satisfies GameState
 
 export const GameSlice = createSlice({
@@ -42,7 +48,7 @@ export const GameSlice = createSlice({
       state.isShotting = true
     },
     roll(state) {
-      state.targetRotation += 0.009
+      state.targetRotation += state.levelConfig.targetRotationSpeed
     },
     moveArrow(state) {
       const minY = GameConfig.gameTargeY + GameConfig.gameTargetRadius
@@ -57,10 +63,15 @@ export const GameSlice = createSlice({
           }
         }
         state.targetNeedles.push(res)
+        // 检查是否达到成功条件
+        if (state.targetNeedles.length >= state.levelConfig.successNeedles) {
+          state.gameStatus = GameStatus.SUCCESS
+          return
+        }
         state.arrowY = defaultY
       }
       else {
-        const nextArrowY = state.arrowY * 0.98
+        const nextArrowY = state.arrowY * state.levelConfig.arrowSpeedFactor
         state.arrowY = nextArrowY <= minY ? minY : nextArrowY
       }
     },
@@ -71,6 +82,16 @@ export const GameSlice = createSlice({
       state.targetRotation = 0
       state.arrowY = defaultY
     },
+    setLevel(state, action: { payload: number }) {
+      const levelIndex = Math.min(Math.max(0, action.payload), LevelConfigs.length - 1)
+      state.currentLevel = levelIndex
+      state.levelConfig = LevelConfigs[levelIndex]
+    },
+    nextLevel(state) {
+      const nextLevel = Math.min(state.currentLevel + 1, LevelConfigs.length - 1)
+      state.currentLevel = nextLevel
+      state.levelConfig = LevelConfigs[nextLevel]
+    },
   },
 })
 
@@ -80,6 +101,8 @@ export const {
   playGame,
   moveArrow,
   resetGame,
+  setLevel,
+  nextLevel,
 } = GameSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
@@ -88,4 +111,6 @@ export const selectIsShotting = (state: RootState) => state.game.isShotting
 export const selectTargetNeedles = (state: RootState) => state.game.targetNeedles
 export const selectTargetRotation = (state: RootState) => state.game.targetRotation
 export const selectArrowY = (state: RootState) => state.game.arrowY
+export const selectCurrentLevel = (state: RootState) => state.game.currentLevel
+export const selectLevelConfig = (state: RootState) => state.game.levelConfig
 export default GameSlice.reducer
