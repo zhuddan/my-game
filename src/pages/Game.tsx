@@ -1,7 +1,8 @@
 import { useTick } from '@pixi/react'
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '~/app/hooks'
-import { GameStatus, moveArrow, roll, selectArrowY, selectGameStatus, selectIsShotting } from '~/app/slices/gameSlice'
+import { GameStatus, moveArrow, resetGame, roll, selectArrowY, selectGameStatus, selectIsShotting } from '~/app/slices/gameSlice'
 import GameAction from '~/ui/game/GameAction'
 import GameArrow from '~/ui/game/GameArrow'
 import GameOver from '~/ui/game/GameOver'
@@ -13,6 +14,7 @@ export default function Game() {
   const arrowY = useAppSelector(selectArrowY)
   const gameStatus = useAppSelector(selectGameStatus)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [showGameOver, setShowGameOver] = useState(false)
 
   const gameLoop = useCallback(() => {
@@ -33,6 +35,12 @@ export default function Game() {
     }
   }, [gameStatus])
 
+  const handleGameOverClose = useCallback(() => {
+    setShowGameOver(false)
+    dispatch(resetGame())
+    navigate('/')
+  }, [dispatch, navigate])
+
   return (
     <>
       <NavBar />
@@ -41,7 +49,7 @@ export default function Game() {
       <GameAction />
       <GameOver
         open={showGameOver}
-        onClose={() => setShowGameOver(false)}
+        onClose={handleGameOverClose}
       />
     </>
   )

@@ -64,6 +64,13 @@ export const GameSlice = createSlice({
         state.arrowY = nextArrowY <= minY ? minY : nextArrowY
       }
     },
+    resetGame(state) {
+      state.gameStatus = GameStatus.PLAY
+      state.isShotting = false
+      state.targetNeedles = []
+      state.targetRotation = 0
+      state.arrowY = defaultY
+    },
   },
 })
 
@@ -72,6 +79,7 @@ export const {
   shot,
   playGame,
   moveArrow,
+  resetGame,
 } = GameSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
