@@ -1,21 +1,20 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '~/app/hooks'
-import { playGame } from '~/app/slices/gameSlice'
+import { useAppDispatch, useAppSelector } from '~/app/hooks'
+import { clearProgress, playGame, selectHasProgress } from '~/app/slices/gameSlice'
 import { DESIGN } from '~/constants/config'
 import Button, { ButtonDefaultProps } from '../Button'
 import GameRule from '../game/GameRule'
 import Modal from '../Modal'
 
-type BtnTexts = '开始游戏' | '继续游戏' | '关卡选择' | '设置' | '游戏规则' | '关于我们'
+type BtnTexts = '新游戏' | '继续游戏' | '游戏规则' | '设置' | '关于我们'
 
 export default function HomeActions() {
   const navigate = useNavigate()
+  const hasProgress = useAppSelector(selectHasProgress)
   const btns = useMemo(() => {
     return ([
-      '开始游戏',
-      // '继续游戏',
-      // '关卡选择',
+      hasProgress ? '继续游戏' : '新游戏',
       '游戏规则',
       '设置',
       '关于我们',
@@ -25,14 +24,19 @@ export default function HomeActions() {
         y: index * (ButtonDefaultProps.height + 20),
       }
     })
-  }, [])
+  }, [hasProgress])
   const [ruleOpen, setRuleOpen] = useState(false)
   const [settingOpen, setSettingOpen] = useState(false)
   const dispatch = useAppDispatch()
 
   const handleClickButton = useCallback((text: BtnTexts) => {
     switch (text) {
-      case '开始游戏':
+      case '新游戏':
+        dispatch(clearProgress())
+        dispatch(playGame())
+        navigate('./game')
+        break
+      case '继续游戏':
         dispatch(playGame())
         navigate('./game')
         break

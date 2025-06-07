@@ -24,6 +24,7 @@ export interface GameState {
   arrowY: number
   currentLevel: number
   levelConfig: LevelConfig
+  hasProgress: boolean
 }
 const diff = GameConfig.arrowBallRadius * 2 / (GameConfig.gameTargetRadius + GameConfig.arrowHeight)
 // Define the initial state using that type
@@ -35,6 +36,7 @@ const initialState: GameState = {
   arrowY: defaultY,
   currentLevel: 0,
   levelConfig: LevelConfigs[0],
+  hasProgress: false,
 } satisfies GameState
 
 export const GameSlice = createSlice({
@@ -86,11 +88,18 @@ export const GameSlice = createSlice({
       const levelIndex = Math.min(Math.max(0, action.payload), LevelConfigs.length - 1)
       state.currentLevel = levelIndex
       state.levelConfig = LevelConfigs[levelIndex]
+      state.hasProgress = true
     },
     nextLevel(state) {
       const nextLevel = Math.min(state.currentLevel + 1, LevelConfigs.length - 1)
       state.currentLevel = nextLevel
       state.levelConfig = LevelConfigs[nextLevel]
+      state.hasProgress = true
+    },
+    clearProgress(state) {
+      state.currentLevel = 0
+      state.levelConfig = LevelConfigs[0]
+      state.hasProgress = false
     },
   },
 })
@@ -103,6 +112,7 @@ export const {
   resetGame,
   setLevel,
   nextLevel,
+  clearProgress,
 } = GameSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
@@ -113,4 +123,5 @@ export const selectTargetRotation = (state: RootState) => state.game.targetRotat
 export const selectArrowY = (state: RootState) => state.game.arrowY
 export const selectCurrentLevel = (state: RootState) => state.game.currentLevel
 export const selectLevelConfig = (state: RootState) => state.game.levelConfig
+export const selectHasProgress = (state: RootState) => state.game.hasProgress
 export default GameSlice.reducer
